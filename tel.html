@@ -1,22 +1,59 @@
 <!doctype html>
-
 <html>
-    <head>
-        <title>HTTPS to SMS</title>
-    </head>
-    <body>
-        <script>
-            // Parse query string parameters using URLSearchParams
-            const urlSearchParams = new URLSearchParams(window.location.search);
-            const params = Object.fromEntries(urlSearchParams.entries());
-            
-            // Retrieve tel and body parameters
-            const tel = params.tel;
-            
-            // Redirect to phone app if tel is valid
-            if (tel) {
-                window.location = `tel:${tel}`;
-            }
-        </script>
-    </body>
+<head>
+  <title>HTTPS to Phone</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+      color: #343a40;
+    }
+
+    button {
+      background-color: #6c757d;
+      font-size: 6vw;
+      font-weight: bold;
+      padding: 5vw 8vw;
+      height: 18vw;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      color: #ffffff;
+      font-family: inherit;
+      transition: background-color 0.3s, transform 0.2s;
+      margin-bottom: 3vw;
+    }
+
+    button:hover {
+      background-color: #5a6268;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <script>
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    const params = Object.fromEntries(urlSearchParams.entries());
+    const tel = params.tel;
+
+    if (tel) {
+      // Trigger the tel: link
+      window.location = `tel:${tel}`;
+
+      // After a short delay, show a "Close Tab" button
+      setTimeout(() => {
+        const button = document.createElement("button");
+        button.textContent = "Close Tab";
+        button.onclick = () => window.close();
+        document.body.appendChild(button);
+      }, 500);
+    }
+  </script>
+</body>
 </html>
